@@ -13,7 +13,5 @@ A simple task management web app built with Django. Users can register, log in, 
 - Only logged-in users can manage their own tasks
 - Responsive and clean UI with template inheritance
 
----
 
-## 📁 Project Structure
 
