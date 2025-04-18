@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{% if task %}Edit Task{% else %}New Task{% endif %}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <label>Title:</label><br>
+    <input type="text" name="title" value="{{ task.title|default:'' }}"><br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description">{{ task.description|default:'' }}</textarea><br><br>
+
+    {% if task %}
+      <label>
+        <input type="checkbox" name="completed" {% if task.completed %}checked{% endif %}>
+        Completed
+      </label><br><br>
+    {% endif %}
+
+    <button type="submit">Save</button>
+  </form>
+
+  <a href="{% url 'task_list' %}">Back to Task List</a>
+{% endblock %}

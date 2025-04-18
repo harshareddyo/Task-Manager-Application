@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background-color: #f0f2f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .auth-links {
+            margin-bottom: 1rem;
+        }
+        .auth-links a {
+            margin-right: 10px;
+        }
+        .task {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .task-actions a {
+            margin-right: 10px;
+        }
+        .add-task {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-links">
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }} |
+                <a href="{% url 'logout' %}">Logout</a>
+            </p>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+
+    <h1>Your Tasks</h1>
+
+    {% for task in tasks %}
+        <div class="task">
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description }}</p>
+            <p><strong>Completed:</strong> {{ task.completed }}</p>
+
+            <div class="task-actions">
+                <a href="{% url 'task_edit' task.id %}">Edit</a>
+                <a href="{% url 'task_delete' task.id %}">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No tasks found.</p>
+    {% endfor %}
+
+    <div class="add-task">
+        <a href="{% url 'task_create' %}">Add New Task</a>
+    </div>
+
+</body>
+</html>
